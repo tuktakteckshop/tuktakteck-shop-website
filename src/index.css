@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-cyber-primary: #6366f1;
+  --color-cyber-secondary: #8b5cf6;
+  --color-cyber-accent: #06b6d4;
+  --color-cyber-dark: #0f172a;
+  --color-cyber-darker: #020617;
+}
+
+/* Custom styling rules matching the aesthetic of premium gadgets */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cyber-darker);
+  color: #f8fafc;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism effects */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-cyber-primary), var(--color-cyber-secondary), var(--color-cyber-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.float-animation {
+  animation: floatMotion 4s ease-in-out infinite;
+}
+
+@keyframes floatMotion {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.pulse-glow {
+  animation: pulseGlowEffect 2.5s infinite;
+}
+
+@keyframes pulseGlowEffect {
+  0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.35); }
+  50% { box-shadow: 0 0 35px rgba(99, 102, 241, 0.7); }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cyber-darker);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-cyber-primary), var(--color-cyber-secondary));
+  border-radius: 4px;
+}
+
+/* HIGH-CONTRAST LIGHT MODE ENHANCEMENTS & OVERRIDES */
+html.light, body.light {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+html.light .text-white,
+html.light .text-slate-100,
+html.light .text-slate-200,
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-300,
+html.light .text-slate-400 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Background panel overrides */
+html.light .bg-cyber-darker,
+html.light .bg-cyber-darker\/95,
+html.light .bg-slate-950,
+html.light .bg-slate-950\/95,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/50,
+html.light .bg-slate-900,
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/50,
+html.light .bg-slate-950\/90,
+html.light .bg-slate-950\/70,
+html.light .bg-black\/50,
+html.light .bg-black\/70,
+html.light .bg-black\/45 {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-cyber-dark,
+html.light .bg-cyber-dark\/50,
+html.light .bg-slate-800,
+html.light .bg-slate-800\/50,
+html.light .bg-white\/5,
+html.light .bg-white\/10 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Hover effects */
+html.light .hover\:bg-white\/5:hover,
+html.light .hover\:bg-white\/10:hover,
+html.light .hover\:bg-slate-900:hover,
+html.light .group:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Border overrides to soft light borders */
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-white\/20,
+html.light .border-white\/15,
+html.light .border-white\/30,
+html.light .border-white\/40 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Glassmorphism panel and cards in light mode */
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Form Controls in Light Mode */
+html.light input,
+html.light textarea,
+html.light select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus,
+html.light select:focus {
+  border-color: #6366f1 !important;
+  outline: none !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Gradients in light mode */
+html.light .gradient-text {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed, #0891b2) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Scrollbar track */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6) !important;
+}
+
+/* Fixing background image panel colors in light mode */
+html.light .bg-slate-950 img {
+  background-color: #f8fafc !important;
+}
+
