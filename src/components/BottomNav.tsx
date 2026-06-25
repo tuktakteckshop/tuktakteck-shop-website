@@ -18,8 +18,8 @@ export default function BottomNav({
   const [showSupportMenu, setShowSupportMenu] = useState(false);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-lg border-t border-white/10 z-40 lg:hidden py-2 shrink-0">
-      <div className="relative flex justify-around items-center max-w-md mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-lg border-t border-white/10 z-40 lg:hidden py-2.5 shrink-0">
+      <div className="relative flex justify-around items-center max-w-md mx-auto px-1">
         {/* Dynamic dropup submenu */}
         {showSupportMenu && (
           <>
@@ -36,7 +36,7 @@ export default function BottomNav({
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => setShowSupportMenu(false)}
-                    className="flex items-center justify-between px-3 py-2 bg-white/5 hover:bg-cyber-primary/20 rounded-xl text-xs text-white transition-all border border-white/5 active:scale-95"
+                    className="flex items-center justify-between px-3 py-2.5 bg-white/5 hover:bg-cyber-primary/20 rounded-xl text-xs text-white transition-all border border-white/5 active:scale-95"
                   >
                     <span className="font-bold">{p.name}</span>
                     <span className="text-[8px] uppercase tracking-wide px-1.5 py-0.5 bg-cyber-primary/20 text-cyber-accent rounded font-mono">Live</span>
@@ -49,34 +49,34 @@ export default function BottomNav({
 
         <button 
           onClick={() => { onNavigate("home"); setShowSupportMenu(false); }} 
-          className={`flex flex-col items-center p-1 cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "home" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Home className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Home</span>
+          <span className="text-[9px] font-medium font-sans">Home</span>
         </button>
 
         <button 
           onClick={() => { onNavigate("shop"); setShowSupportMenu(false); }} 
-          className={`flex flex-col items-center p-1 cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "shop" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Store className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Shop</span>
+          <span className="text-[9px] font-medium font-sans">Shop</span>
         </button>
 
         <button 
           onClick={() => { onNavigate("favorites"); setShowSupportMenu(false); }} 
-          className={`flex flex-col items-center p-1 relative cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center relative cursor-pointer transition-colors rounded-xl ${
             currentPage === "favorites" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Heart className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Wishlist</span>
+          <span className="text-[9px] font-medium font-sans">Wishlist</span>
           {favoritesCount > 0 && (
-            <span className="absolute top-0 right-1.5 w-3.5 h-3.5 bg-rose-500 rounded-full text-[8px] font-bold flex items-center justify-center text-white">
+            <span className="absolute top-1.5 right-1.5 w-3.5 h-3.5 bg-rose-500 rounded-full text-[8px] font-bold flex items-center justify-center text-white">
               {favoritesCount}
             </span>
           )}
@@ -85,32 +85,32 @@ export default function BottomNav({
         {/* Support message tab button */}
         <button 
           onClick={() => setShowSupportMenu(!showSupportMenu)} 
-          className={`flex flex-col items-center p-1 cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <MessageSquare className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Support</span>
+          <span className="text-[9px] font-medium font-sans">Support</span>
         </button>
 
         <button 
           onClick={() => { onNavigate("delivery"); setShowSupportMenu(false); }} 
-          className={`flex flex-col items-center p-1 cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "delivery" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Truck className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Delivery</span>
+          <span className="text-[9px] font-medium font-sans">Delivery</span>
         </button>
 
         <button 
           onClick={() => { onNavigate("profile"); setShowSupportMenu(false); }} 
-          className={`flex flex-col items-center p-1 cursor-pointer transition-colors ${
+          className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "profile" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <User className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium font-sans">Profile</span>
+          <span className="text-[9px] font-medium font-sans">Profile</span>
         </button>
       </div>
     </nav>
