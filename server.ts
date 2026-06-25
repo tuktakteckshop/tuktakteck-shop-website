@@ -1,11 +1,13 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { createServer as createViteServer } from "vite";
 import { Product, User, Order, Coupon, MessagePlatform } from "./src/types";
 
 // Database storage setup
-const DB_FILE = path.join(process.cwd(), "database_tuktak.json");
+const isVercel = process.env.VERCEL === "1" || !!process.env.VERCEL;
+const DB_FILE = isVercel 
+  ? path.join("/tmp", "database_tuktak.json") 
+  : path.join(process.cwd(), "database_tuktak.json");
 
 interface DatabaseSchema {
   products: Product[];
@@ -20,7 +22,7 @@ interface DatabaseSchema {
 // Initial/default products list
 const INITIAL_PRODUCTS: Product[] = [
   { id: 1, name: 'Wireless Earbuds Pro', price: 79.99, originalPrice: 129.99, category: 'audio', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400', rating: 4.8, reviews: 2341, description: 'Premium wireless earbuds with high-fidelity sound quality, active noise cancellation (ANC), and crystal-clear microphone resolution. Enjoy up to 30 hours of continuous playtime using the included dynamic wireless charging case.', stock: 50 },
-  { id: 2, name: 'Smart Watch Ultra', price: 299.99, originalPrice: 399.99, category: 'wearables', image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400', rating: 4.9, reviews: 1892, description: 'Advanced wearable smartwatch with continuous ECG health monitoring, built-in dual-frequency GPS, and an ultra-rugged aerospace-grade titanium bezel. Perfect for tracking long hikes, cycling excursions, or deep sleep metrics.', stock: 30 },
+  { id: 2, name: 'Smart Watch Ultra', price: 299.99, originalPrice: 399.99, category: 'wearables', image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400', rating: 4.9, reviews: 1892, description: 'Advanced wearable smartwatch with continuous ECG health monitoring, built-id dual-frequency GPS, and an ultra-rugged aerospace-grade titanium bezel. Perfect for tracking long hikes, cycling excursions, or deep sleep metrics.', stock: 30 },
   { id: 3, name: 'Gaming Mouse RGB', price: 49.99, originalPrice: 79.99, category: 'peripherals', image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc5a1b9?w=400', rating: 4.7, reviews: 3421, description: 'High-precision ergonomically optimized gaming mouse with fully customizable multi-zone RGB flow illumination, a 26K DPI optical sensor, and ultra-durable tactile switches rated for 80 million crisp operations.', stock: 100 },
   { id: 4, name: 'Mechanical Keyboard', price: 129.99, originalPrice: 179.99, category: 'peripherals', image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400', rating: 4.8, reviews: 2156, description: 'Sleek hot-swappable mechanical gaming and typing keyboard with premium Cherry MX switches, durable double-shot PBT keycaps, and a robust bead-blasted aluminum alloy top plate.', stock: 45 },
   { id: 5, name: '4K Webcam HD', price: 89.99, originalPrice: 119.99, category: 'peripherals', image: 'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400', rating: 4.6, reviews: 1567, description: 'Crystal-clear 4K Ultra-HD streaming webcam with high frame rates, intelligent auto-exposure, dual noise-canceling stereo microphones, and integrated sliding physical privacy cover.', stock: 60 },
@@ -50,8 +52,11 @@ const DEFAULT_PLATFORMS: MessagePlatform[] = [
   { id: 'hotline', name: 'Hotline', icon: 'Phone', value: 'tel:+8801234567890', bgColor: 'bg-indigo-600', isActive: true }
 ];
 
+let memoryDB: DatabaseSchema | null = null;
+
 // Helper to interact with the database
 function readDB(): DatabaseSchema {
+  if (memoryDB) return memoryDB;
   try {
     if (!fs.existsSync(DB_FILE)) {
       const initialDB: DatabaseSchema = {
@@ -63,7 +68,12 @@ function readDB(): DatabaseSchema {
         platforms: DEFAULT_PLATFORMS,
         adminPassword: "admin123"
       };
-      fs.writeFileSync(DB_FILE, JSON.stringify(initialDB, null, 2));
+      try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(initialDB, null, 2));
+      } catch (writeErr) {
+        console.warn("Could not write database_tuktak.json, fallback to memory storage:", writeErr);
+      }
+      memoryDB = initialDB;
       return initialDB;
     }
     const rawData = fs.readFileSync(DB_FILE, "utf-8");
@@ -84,12 +94,17 @@ function readDB(): DatabaseSchema {
       migrated = true;
     }
     if (migrated) {
-      fs.writeFileSync(DB_FILE, JSON.stringify(parsed, null, 2));
+      try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(parsed, null, 2));
+      } catch (writeErr) {
+        console.warn("Could not write updated database_tuktak.json, fallback to memory storage:", writeErr);
+      }
     }
+    memoryDB = parsed;
     return parsed;
   } catch (err) {
     console.error("Database reading warning:", err);
-    return { 
+    const fallbackDB = { 
       products: INITIAL_PRODUCTS, 
       users: [], 
       orders: [], 
@@ -98,10 +113,13 @@ function readDB(): DatabaseSchema {
       platforms: DEFAULT_PLATFORMS,
       adminPassword: "admin123"
     };
+    memoryDB = fallbackDB;
+    return fallbackDB;
   }
 }
 
 function writeDB(data: DatabaseSchema) {
+  memoryDB = data;
   try {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
   } catch (err) {
@@ -720,6 +738,7 @@ async function startServer() {
   // --- Vite Dev and Prod Middleware Setup ---
 
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
