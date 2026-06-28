@@ -47,28 +47,31 @@ export default function BottomNav({
           </>
         )}
 
-        <button 
-          onClick={() => { onNavigate("home"); setShowSupportMenu(false); }} 
+        <a 
+          href="#/home"
+          onClick={() => { setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "home" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Home className="w-5 h-5 mb-0.5" />
           <span className="text-[9px] font-medium font-sans">Home</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => { onNavigate("shop"); setShowSupportMenu(false); }} 
+        <a 
+          href="#/shop"
+          onClick={() => { setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "shop" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Store className="w-5 h-5 mb-0.5" />
           <span className="text-[9px] font-medium font-sans">Shop</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => { onNavigate("favorites"); setShowSupportMenu(false); }} 
+        <a 
+          href="#/favorites"
+          onClick={() => { setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center relative cursor-pointer transition-colors rounded-xl ${
             currentPage === "favorites" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
@@ -80,7 +83,7 @@ export default function BottomNav({
               {favoritesCount}
             </span>
           )}
-        </button>
+        </a>
 
         {/* Support message tab button */}
         <button 
@@ -93,25 +96,27 @@ export default function BottomNav({
           <span className="text-[9px] font-medium font-sans">Support</span>
         </button>
 
-        <button 
-          onClick={() => { onNavigate("delivery"); setShowSupportMenu(false); }} 
+        <a 
+          href="#/delivery"
+          onClick={() => { setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "delivery" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <Truck className="w-5 h-5 mb-0.5" />
           <span className="text-[9px] font-medium font-sans">Delivery</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => { onNavigate("profile"); setShowSupportMenu(false); }} 
+        <a 
+          href="#/profile"
+          onClick={() => { setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "profile" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
         >
           <User className="w-5 h-5 mb-0.5" />
           <span className="text-[9px] font-medium font-sans">Profile</span>
-        </button>
+        </a>
       </div>
     </nav>
   );

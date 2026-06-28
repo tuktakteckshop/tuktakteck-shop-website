@@ -47,15 +47,52 @@ export default function App() {
     localStorage.setItem("tuktak_theme", theme);
   }, [theme]);
 
+  // Detailed Product View target
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+  const [detailQuantity, setDetailQuantity] = useState<number>(1);
+
+  // Synchronize state currentPage with URL hash routing
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#/", "");
+      if (hash.startsWith("product/")) {
+        const idStr = hash.split("/")[1];
+        const id = parseInt(idStr, 10);
+        if (!isNaN(id)) {
+          setSelectedProductId(id);
+          setCurrentPage("product");
+        }
+      } else if (hash && ["home", "shop", "favorites", "delivery", "admin", "about", "profile"].includes(hash)) {
+        setCurrentPage(hash);
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    // Initial check on mount
+    handleHashChange();
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  // Update URL hash when state changes
+  useEffect(() => {
+    if (currentPage === "product" && selectedProductId !== null) {
+      window.location.hash = `#/product/${selectedProductId}`;
+    } else {
+      const currentHash = window.location.hash.replace("#/", "");
+      if (currentPage && currentPage !== currentHash) {
+        window.location.hash = `#/${currentPage}`;
+      }
+    }
+  }, [currentPage, selectedProductId]);
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("default");
-  
-  // Detailed Product View target
-  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-  const [detailQuantity, setDetailQuantity] = useState<number>(1);
 
   // Authentication & session records
   const [currentUser, setCurrentUser] = useState<User | null>(() => {

@@ -41,8 +41,9 @@ export default function Sidebar({
   return (
     <aside className="fixed left-0 top-16 bottom-0 w-64 bg-slate-950/80 backdrop-blur-md border-r border-white/10 hidden lg:block z-35 overflow-y-auto p-5 scrollbar-thin">
       <nav className="space-y-1.5">
-        <button 
-          onClick={() => { onNavigate("home"); onSelectCategory(null); }}
+        <a 
+          href="#/home"
+          onClick={() => { onSelectCategory(null); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "home" && !selectedCategory
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -51,10 +52,11 @@ export default function Sidebar({
         >
           <Home className="w-4 h-4" />
           <span>Home</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => { onNavigate("shop"); onSelectCategory(null); }}
+        <a 
+          href="#/shop"
+          onClick={() => { onSelectCategory(null); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "shop" && !selectedCategory
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -63,10 +65,10 @@ export default function Sidebar({
         >
           <Store className="w-4 h-4" />
           <span>All Gadgets</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => onNavigate("favorites")}
+        <a 
+          href="#/favorites"
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "favorites" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -80,10 +82,10 @@ export default function Sidebar({
               {favoritesCount}
             </span>
           )}
-        </button>
+        </a>
 
-        <button 
-          onClick={() => onNavigate("admin")}
+        <a 
+          href="#/admin"
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "admin" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -92,10 +94,10 @@ export default function Sidebar({
         >
           <Cpu className="w-4 h-4 text-cyber-accent" />
           <span>Admin Controls Console</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => onNavigate("delivery")}
+        <a 
+          href="#/delivery"
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "delivery" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -104,10 +106,10 @@ export default function Sidebar({
         >
           <Truck className="w-4 h-4" />
           <span>My Delivery</span>
-        </button>
+        </a>
 
-        <button 
-          onClick={() => onNavigate("about")}
+        <a 
+          href="#/about"
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "about" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -116,7 +118,7 @@ export default function Sidebar({
         >
           <Info className="w-4 h-4" />
           <span>About TukTak</span>
-        </button>
+        </a>
       </nav>
 
       {/* Catalog Categories listing */}
@@ -128,9 +130,10 @@ export default function Sidebar({
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
             return (
-              <button
+              <a
                 key={cat.id}
-                onClick={() => { onSelectCategory(cat.id); onNavigate("shop"); }}
+                href="#/shop"
+                onClick={() => { onSelectCategory(cat.id); }}
                 className={`w-full flex items-center space-x-3 p-2.5 rounded-lg transition-all text-xs text-left ${
                   isSelected 
                     ? "bg-gradient-to-r from-cyber-primary/35 to-cyber-secondary/15 text-white font-medium" 
@@ -141,7 +144,7 @@ export default function Sidebar({
                   {getCategoryIcon(cat.icon)}
                 </div>
                 <span className="truncate">{cat.name}</span>
-              </button>
+              </a>
             );
           })}
         </div>

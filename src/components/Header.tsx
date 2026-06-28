@@ -87,7 +87,6 @@ export default function Header({
               <h1 className="text-xl font-bold font-display bg-gradient-to-r from-cyber-primary via-cyber-secondary to-cyber-accent bg-clip-text text-transparent leading-none">
                 TukTak Teck
               </h1>
-              <p className="text-[10px] text-slate-400 tracking-wider">PREMIUM GADGETS</p>
             </div>
           </div>
 
