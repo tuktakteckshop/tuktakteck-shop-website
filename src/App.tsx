@@ -51,40 +51,49 @@ export default function App() {
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [detailQuantity, setDetailQuantity] = useState<number>(1);
 
-  // Synchronize state currentPage with URL hash routing
+  // Synchronize state currentPage with URL query parameter routing
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#/", "");
-      if (hash.startsWith("product/")) {
-        const idStr = hash.split("/")[1];
+    const handleQueryChange = () => {
+      const search = window.location.search;
+      if (search.startsWith("?product=")) {
+        const idStr = search.replace("?product=", "");
         const id = parseInt(idStr, 10);
         if (!isNaN(id)) {
           setSelectedProductId(id);
           setCurrentPage("product");
+          return;
         }
-      } else if (hash && ["home", "shop", "favorites", "delivery", "admin", "about", "profile"].includes(hash)) {
-        setCurrentPage(hash);
+      }
+      
+      const page = search.replace("?", "");
+      if (page && ["home", "shop", "favorites", "delivery", "admin", "about", "profile"].includes(page)) {
+        setCurrentPage(page);
+      } else if (!page || page === "") {
+        setCurrentPage("home");
       }
     };
 
-    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleQueryChange);
     // Initial check on mount
-    handleHashChange();
+    handleQueryChange();
 
     return () => {
-      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleQueryChange);
     };
   }, []);
 
-  // Update URL hash when state changes
+  // Update URL query-string when state changes
   useEffect(() => {
+    let newSearch = "";
     if (currentPage === "product" && selectedProductId !== null) {
-      window.location.hash = `#/product/${selectedProductId}`;
-    } else {
-      const currentHash = window.location.hash.replace("#/", "");
-      if (currentPage && currentPage !== currentHash) {
-        window.location.hash = `#/${currentPage}`;
-      }
+      newSearch = `?product=${selectedProductId}`;
+    } else if (currentPage && currentPage !== "home") {
+      newSearch = `?${currentPage}`;
+    }
+
+    const currentSearch = window.location.search;
+    if (currentSearch !== newSearch) {
+      window.history.pushState(null, "", window.location.pathname + newSearch);
     }
   }, [currentPage, selectedProductId]);
 

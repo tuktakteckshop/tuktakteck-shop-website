@@ -48,8 +48,8 @@ export default function BottomNav({
         )}
 
         <a 
-          href="#/home"
-          onClick={() => { setShowSupportMenu(false); }} 
+          href="?"
+          onClick={(e) => { e.preventDefault(); onNavigate("home"); setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "home" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
@@ -59,8 +59,8 @@ export default function BottomNav({
         </a>
 
         <a 
-          href="#/shop"
-          onClick={() => { setShowSupportMenu(false); }} 
+          href="?shop"
+          onClick={(e) => { e.preventDefault(); onNavigate("shop"); setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "shop" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
@@ -70,8 +70,8 @@ export default function BottomNav({
         </a>
 
         <a 
-          href="#/favorites"
-          onClick={() => { setShowSupportMenu(false); }} 
+          href="?favorites"
+          onClick={(e) => { e.preventDefault(); onNavigate("favorites"); setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center relative cursor-pointer transition-colors rounded-xl ${
             currentPage === "favorites" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
@@ -97,8 +97,8 @@ export default function BottomNav({
         </button>
 
         <a 
-          href="#/delivery"
-          onClick={() => { setShowSupportMenu(false); }} 
+          href="?delivery"
+          onClick={(e) => { e.preventDefault(); onNavigate("delivery"); setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "delivery" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}
@@ -108,8 +108,8 @@ export default function BottomNav({
         </a>
 
         <a 
-          href="#/profile"
-          onClick={() => { setShowSupportMenu(false); }} 
+          href="?profile"
+          onClick={(e) => { e.preventDefault(); onNavigate("profile"); setShowSupportMenu(false); }} 
           className={`flex flex-col items-center p-2.5 min-w-[44px] min-h-[44px] justify-center cursor-pointer transition-colors rounded-xl ${
             currentPage === "profile" && !showSupportMenu ? "text-cyber-accent" : "text-slate-400 hover:text-white"
           }`}

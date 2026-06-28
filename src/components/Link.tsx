@@ -6,12 +6,13 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export default function Link({ to, children, ...props }: LinkProps) {
-  // Normalize path. E.g. "/shop" or "shop" -> "#/shop"
+  // Normalize path. E.g. "/shop" or "shop" -> "?shop"
   let path = to;
   if (path.startsWith("/")) {
     path = path.slice(1);
   }
-  const href = `#/${path}`;
+  
+  const href = path === "home" || path === "" ? "?" : `?${path}`;
 
   return (
     <a href={href} {...props}>

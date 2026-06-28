@@ -42,8 +42,8 @@ export default function Sidebar({
     <aside className="fixed left-0 top-16 bottom-0 w-64 bg-slate-950/80 backdrop-blur-md border-r border-white/10 hidden lg:block z-35 overflow-y-auto p-5 scrollbar-thin">
       <nav className="space-y-1.5">
         <a 
-          href="#/home"
-          onClick={() => { onSelectCategory(null); }}
+          href="?"
+          onClick={(e) => { e.preventDefault(); onNavigate("home"); onSelectCategory(null); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "home" && !selectedCategory
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -55,8 +55,8 @@ export default function Sidebar({
         </a>
 
         <a 
-          href="#/shop"
-          onClick={() => { onSelectCategory(null); }}
+          href="?shop"
+          onClick={(e) => { e.preventDefault(); onNavigate("shop"); onSelectCategory(null); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "shop" && !selectedCategory
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -68,7 +68,8 @@ export default function Sidebar({
         </a>
 
         <a 
-          href="#/favorites"
+          href="?favorites"
+          onClick={(e) => { e.preventDefault(); onNavigate("favorites"); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "favorites" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -85,7 +86,8 @@ export default function Sidebar({
         </a>
 
         <a 
-          href="#/admin"
+          href="?admin"
+          onClick={(e) => { e.preventDefault(); onNavigate("admin"); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "admin" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -97,7 +99,8 @@ export default function Sidebar({
         </a>
 
         <a 
-          href="#/delivery"
+          href="?delivery"
+          onClick={(e) => { e.preventDefault(); onNavigate("delivery"); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "delivery" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -109,7 +112,8 @@ export default function Sidebar({
         </a>
 
         <a 
-          href="#/about"
+          href="?about"
+          onClick={(e) => { e.preventDefault(); onNavigate("about"); }}
           className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all font-medium text-xs text-left ${
             currentPage === "about" 
               ? "bg-cyber-primary/20 text-white border-l-2 border-cyber-primary" 
@@ -132,8 +136,8 @@ export default function Sidebar({
             return (
               <a
                 key={cat.id}
-                href="#/shop"
-                onClick={() => { onSelectCategory(cat.id); }}
+                href="?shop"
+                onClick={(e) => { e.preventDefault(); onSelectCategory(cat.id); onNavigate("shop"); }}
                 className={`w-full flex items-center space-x-3 p-2.5 rounded-lg transition-all text-xs text-left ${
                   isSelected 
                     ? "bg-gradient-to-r from-cyber-primary/35 to-cyber-secondary/15 text-white font-medium" 
