@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Remix: TukTak Teck",
+  "description": "Full-stack cyber Tech e-commerce gadgets catalog with cart, wishlist, deliveries log, and custom payments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
